@@ -1,18 +1,1 @@
-{
-    "cliente": {
-        "id": 2020,
-        "nome": "Maria Aparecida"
-    },
-    "pagamentos": [
-        {
-            "id": 123,
-            "descricacao": "Compra do livro Cangaceiro JavaScript",
-            "valor": 50.5
-        },
-        {
-            "id": 124,
-            "descricacao": "Mensalidade escolar",
-            "valor": 1500
-        }
-    ]
- }
+[{"id":"8ltne4oh9","name":"Alifer Souza","email":"alifersouza94@gmail.com","phone":"31993253883"}]
