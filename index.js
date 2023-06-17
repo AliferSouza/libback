@@ -3,7 +3,7 @@ const path = require('path');
 const {server, router} = require('./server.js');
 
 
-router.get('/db', (req, res) => {
+router.get('/', (req, res) => {
   const filePath = path.join(__dirname, "db", "db.json");
   fs.readFile(filePath, (err, content) => {
     if (err) {
