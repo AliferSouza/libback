@@ -1,13 +1,32 @@
 const fs = require('fs');
 const path = require('path');
-const { server, router } = require('./server.js');
+const { server, router, loadEnvVariables} = require('./server.js');
+loadEnvVariables("alifer.env")
 
-router.get('/api', (req, res) => {
-  const filePath = path.join(__dirname, 'db', 'db.json');
-  fs.readFile(filePath, (err, content) => {
-    res.writeHead(err ? 500 : 200, { 'Content-Type': 'text/plain' });
+
+
+router.get('/',  async (req, res) => {
+    const filePath = path.join(__dirname, 'index.html');
+
+    const content = await fs.promises.readFile(filePath, 'utf-8');
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
     res.end(content, 'utf-8');
-  });
+
+});
+
+router.get('/api', async (req, res) => {
+  const filePath = path.join(__dirname, 'db', 'db.json');
+
+  try {
+    const content = await fs.promises.readFile(filePath, 'utf-8');
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(content, 'utf-8');
+  } catch (err) {
+    res.statusCode = 500;
+    res.end('Erro ao ler o arquivo JSON.');
+  }
 });
 
 router.post('/api', (req, res) => {
@@ -94,3 +113,5 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+
