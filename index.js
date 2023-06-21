@@ -58,6 +58,8 @@ const apiObject = eval(pathApi);
 router.get('/',  async (req, res) => {
     const filePath = path.join(__dirname, "src", 'index.html');
 
+  console.log(filePath)
+
     const content = await fs.promises.readFile(filePath, 'utf-8');
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
