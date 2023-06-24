@@ -1,7 +1,7 @@
-// mais.js
-const path = require('path');
-const fs = require('fs');
-module.exports = async function(req, res) {
+import fs from 'fs';
+import path from 'path';
+
+export default async function(req, res) {
    const parentDirectoryPath = path.resolve(__dirname, '..',  'db', 'db.json');
   try {
     const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');

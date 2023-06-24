@@ -2,29 +2,29 @@ const data = [
   {
     id: "Router",
     title: "Router",
-    Descricao:`
+    Descricao: `
         
         <h2></h2>
-        <img src='./src/img/router2.png' class='img-descricao'>   
+        <img src='/img/router2.png' class='img-descricao'>   
   
         <span>A função 'Router' é responsável por controlar a navegação em um aplicativo web utilizando o conceito de roteamento. Ela recebe um objeto 'Pages' como parâmetro, que contém as definições das páginas do aplicativo.
         
         A função 'Router' possui várias subfunções e é usada para realizar as seguintes tarefas:  </span>
         
         <h2>CUSTOMTAGS</h2><span> Essa função é responsável por processar os elementos HTML personalizados (tags) presentes nas páginas. Ela substitui os elementos personalizados por suas respectivas implementações e adiciona os atributos correspondentes.</span>
-        <img src='./src/img/customtag.png' class='img-descricao'  >  
+        <img src='/img/customtag.png' class='img-descricao'  >  
         <h2>RENDER</h2> <span>Essa função renderiza a página selecionada com base no nome da página fornecido. Ela obtém o HTML e o estado da página selecionada do objeto 'Pages' e chama a função 'customTags' para processar os elementos personalizados, se houver.</span>
-        <img src='./src/img/render.png' class='img-descricao' >  
+        <img src='/img/render.png' class='img-descricao' >  
         <h2>STATEURL</h2> <span>Essa função extrai o nome da página atual da URL e retorna o nome da página correspondente com base no objeto 'Pages'. Se a URL não corresponder a nenhuma página existente, a página de erro será retornada.</span>
-        <img src='./src/img/stateurl.png' class='img-descricao' >  
+        <img src='/img/stateurl.png' class='img-descricao' >  
         <h2>DEBOUNCE</h2> <span>Essa função é um utilitário para criar uma versão "debounce" de uma função, ou seja, ela limita a frequência com que a função é executada, evitando chamadas excessivas.</span>
-        <img src='./src/img/debounce.png' class='img-descricao'  >  
+        <img src='/img/debounce.png' class='img-descricao'  >  
         <h2>ERRO-PAGE</h2> <span>Essa função gera o conteúdo HTML para exibir a página de erro, caso uma página inválida seja solicitada. Ela cria links para todas as páginas disponíveis no objeto 'Pages'.</span>
-        <img src='./src/img/erropage.png' class='img-descricao'  >  
+        <img src='/img/erropage.png' class='img-descricao'  >  
         <h2>ROUTER-STATE</h2> <span>Essa função é responsável por verificar o estado atual do roteamento e chamar a função 'render' para exibir a página correspondente.</span>
-        <img src='./src/img/routerState.png' class='img-descricao'  >  
+        <img src='/img/routerState.png' class='img-descricao'  >  
         <h2>HANDLECLCK</h2> <span>Essa função lida com os cliques nos links do aplicativo. Ela intercepta o evento de clique, impede o comportamento padrão do link, atualiza a URL utilizando o histórico de navegação e chama a função 'routerState' para renderizar a página correspondente.</span>
-        <img src='./src/img/handleClick.png' class='img-descricao' >  
+        <img src='/img/handleClick.png' class='img-descricao' >  
         <h2>RESUMO</h2> <span>A função 'Router' é configurada para responder aos eventos de popstate (quando ocorre uma alteração no histórico de navegação) e cliques nos links do aplicativo. Ela é chamada inicialmente para configurar o estado inicial do aplicativo com base na URL atual e também é chamada sempre que ocorre uma alteração na URL.
         
        Em resumo, a função 'Router' é responsável por controlar a navegação entre as páginas do aplicativo, atualizando dinamicamente o conteúdo da página com base na URL e nos links clicados pelo usuário.</span>`,
@@ -38,7 +38,7 @@ const data = [
   {
     id: "useApi",
     title: "useAPI",
-    Descricao:`
+    Descricao: `
       <span> A função 'useApi' é uma função assíncrona que recebe dois parâmetros: 'url' e 'method'. Ela utiliza a API Fetch para fazer uma requisição assíncrona para a URL especificada, utilizando o método HTTP especificado.
       Aqui está uma descrição passo a passo do que acontece dentro da função 'useApi': </span>
 
@@ -60,7 +60,7 @@ const data = [
 
       <span> função 'useApi' é projetada para facilitar a utilização da API Fetch para fazer requisições assíncronas e obter dados em formato JSON. No entanto, é importante ressaltar que o uso correto dessa função depende da correta utilização dos parâmetros 'url' e 'method' ao chamá-la
       Certifique-se de passar a URL correta para a API desejada e um método HTTP adequado, como ''GET'', ''POST'', ''PUT'', ''DELETE'', etc. Além disso, tenha em mente que essa função retorna uma Promise, então você pode usar o 'await' ao chamá-la ou tratá-la como uma Promise com 'then()' e 'catch()' para manipular o resultado ou lidar com erros. </span>
-      <img src='./src/img/useapi.png' class='img-descricao'>
+      <img src='/img/useapi.png' class='img-descricao'>
          `,
     contribuidores: [
       {
@@ -71,7 +71,7 @@ const data = [
   {
     id: "useLocation",
     title: "useLocation",
-    Descricao:`
+    Descricao: `
        <span> A função'useLocation' é uma função assíncrona que retorna a latitude e a longitude do usuário, utilizando a API de Geolocalização do navegador.
         Aqui está uma descrição passo a passo do que acontece dentro da função'useLocation':</span>
 
@@ -98,7 +98,7 @@ const data = [
         <span>11. Se ocorrer algum erro durante o processo (por exemplo, o navegador não suporta a geolocalização ou houve um erro ao obter a posição), o bloco'catch' será executado. Nesse caso, o erro é capturado, e a mensagem de erro é exibida no console usando'console.log', e'[null, null]' é retornado para indicar que a localização não pôde ser obtida.</span>
 
         <span>Essa função'useLocation' pode ser usada para obter a localização atual do usuário. No entanto, é importante notar que o sucesso da obtenção da localização depende do consentimento do usuário e das configurações de privacidade do navegador. Além disso, essa função retorna uma Promise, então você pode usar o'await' ao chamá-la ou tratá-la como uma Promise com'then()' e'catch()' para manipular o resultado ou lidar com erros.</span>
-        <img src='./src/img/uselocation.png' class='img-descricao'>
+        <img src='/img/uselocation.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -109,7 +109,7 @@ const data = [
   {
     id: "useSearch",
     title: "useSearch",
-    Descricao:`
+    Descricao: `
       <span>  A função useSearch parece ser uma função simples que recebe um parâmetro props e retorna um valor relacionado à URL de pesquisa (query string).
         Aqui está uma descrição do que a função faz:</span>
         
@@ -128,7 +128,7 @@ const data = [
         <span>  Recomenda-se verificar a documentação e considerar a implementação de validações adicionais, manipulação de erros e garantia de que as propriedades da URL de pesquisa estejam corretamente tratadas para atender aos requisitos do seu projeto.</span>
                  
     
-       <img src='./src/img/usesearch.png' class='img-descricao'>
+       <img src='/img/usesearch.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -139,7 +139,7 @@ const data = [
   {
     id: "useNavigate",
     title: "useNavigate",
-    Descricao:`
+    Descricao: `
     <span>The code you provided seems to be defining an asynchronous function called 'useNavigate' that takes a parameter 'rota'. Here's a breakdown of what the code does: </span>
 
     <span>1. It calls the 'useGetModules' function, passing '"../pages/index.js"' as an argument. The 'await' keyword indicates that the function call will wait for the promise returned by 'useGetModules' to resolve before proceeding.</span>
@@ -151,7 +151,7 @@ const data = [
     <span>4. Finally, the 'Router' function is called, passing the 'Pages' variable as an argument. The purpose of this function is not clear from the provided code snippet.</span>
     
     <span> It's worth noting that this code assumes the existence of the 'useGetModules' and 'Router' functions, which are not defined in the provided code. Additionally, the code snippet appears to be using JavaScript with modern syntax, such as 'async/await' and 'history.pushState', so it should be executed in an environment that supports these features (e.g., a modern web browser).</span>
-       <img src='./src/img/usenavigate.png' class='img-descricao'>
+       <img src='/img/usenavigate.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -162,7 +162,7 @@ const data = [
   {
     id: "$",
     title: "$",
-    Descricao:`
+    Descricao: `
     <span>A função '$util' é uma função versátil que combina as funcionalidades das funções '$', '$$' e '$$$' em uma única função. Ela permite selecionar elementos do DOM, definir atributos e conteúdo HTML nesses elementos e retornar os elementos selecionados.
         Aqui está uma descrição do que a função faz:</span>
 
@@ -183,7 +183,7 @@ const data = [
           - Se 'arg2' estiver presente, concatena o valor de 'arg2' ao conteúdo HTML de cada elemento selecionado.</span>
 
           <span>  Em resumo, a função '$util' permite selecionar elementos do DOM, definir atributos e conteúdo HTML nesses elementos e retornar os elementos selecionados. Ela é capaz de lidar com diferentes tipos de argumentos e operar de forma flexível, dependendo dos argumentos fornecidos, tornando-a uma função útil para manipulação e interação com o DOM.</span>
-          <img src='./src/img/$util.png' class='img-descricao'>
+          <img src='img/$util.png' class='img-descricao'>
                         `,
     contribuidores: [
       {
@@ -194,7 +194,7 @@ const data = [
   {
     id: "$$",
     title: "$$",
-    Descricao:`
+    Descricao: `
         <span>A função '$$' é uma função personalizada que recebe um array de objetos 'options'. Cada objeto no array 'options' contém um seletor CSS como chave e um conjunto de atributos como valor. A função itera sobre cada objeto 'element' em 'options' e aplica os atributos ao elemento correspondente no DOM.</span>
 
         Aqui está uma descrição do que a função faz:
@@ -206,7 +206,7 @@ const data = [
         <span> 5. Para cada par chave-valor nos atributos do elemento, iterados usando 'Object.entries(attributes)', a função verifica se a chave é "innerHTML". Se for, o conteúdo HTML do elemento é definido para o valor correspondente usando 'targetElement.innerHTML = value'. Caso contrário, o atributo é definido usando 'targetElement.setAttribute(attribute, value)'.</span>
 
         <span>Em resumo, a função '$$' permite definir atributos e conteúdo HTML para elementos do DOM com base nos seletores CSS e nos atributos fornecidos no array 'options'.</span>
-        <img src='./src/img/$$.png' class='img-descricao'>
+        <img src='/img/$$.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -217,7 +217,7 @@ const data = [
   {
     id: "$$$",
     title: "$$$",
-    Descricao:`
+    Descricao: `
     <span>A função '$$$' é uma função personalizada que recebe um seletor CSS como primeiro argumento ('props') e um valor para renderizar como segundo argumento ('valorArederizar'). A função seleciona todos os elementos no DOM que correspondem ao seletor CSS fornecido usando 'document.querySelectorAll(props)'.
 
     Aqui está uma descrição do que a função faz:</span>
@@ -229,7 +229,7 @@ const data = [
     <span> 5. A função retorna o array 'elements', que contém todos os elementos selecionados.:</span>
     
     <span>Em resumo, essa função permite selecionar vários elementos no DOM com base em um seletor CSS e, opcionalmente, adicionar um valor ao conteúdo HTML desses elementos. Ela retorna um array contendo os elementos selecionados.Em resumo, a função '$$' permite definir atributos e conteúdo HTML para elementos do DOM com base nos seletores CSS e nos atributos fornecidos no array 'options'.:</span>
-        <img src='./src/img/$$$.png' class='img-descricao'>
+        <img src='/img/$$$.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -240,7 +240,7 @@ const data = [
   {
     id: "useLocalStorage",
     title: "useLocalStorage",
-    Descricao:`
+    Descricao: `
     <span>A função 'useLocalStorage' é uma função que permite realizar operações de leitura e gravação de dados no armazenamento local do navegador, também conhecido como localStorage. Ela oferece três operações distintas: 'getItem', 'setItem' e 'setItems'.</span>
 
     <span><h3 style="color: red">1. getItem:</h3>
@@ -267,7 +267,7 @@ const data = [
      - Nenhum retorno explícito.</span>
 
      <span>A função 'useLocalStorage' permite manipular os dados no localStorage de forma flexível, dependendo da operação selecionada. Ela pode ser usada para obter valores específicos, definir valores ou adicionar valores a arrays armazenados localmente.</span>
-<img src='./src/img/useLocalStorage.png' class='img-descricao'>
+<img src='/img/useLocalStorage.png' class='img-descricao'>
                 `,
     contribuidores: [
       {
@@ -275,8 +275,6 @@ const data = [
       },
     ],
   },
-
 ];
-
 
 export { data };
