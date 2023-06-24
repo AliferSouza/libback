@@ -6,7 +6,7 @@ module.exports = async function(req, res) {
     const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');
     console.log(content)
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'text/html');
     res.end(content, 'utf-8');
   } catch (err) {
     res.statusCode = 500;
