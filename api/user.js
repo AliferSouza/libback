@@ -2,8 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 module.exports = async function(req, res) {
-  const id = req.params.id;
-  const parentDirectoryPath = path.resolve(__dirname, '..',  'db', 'db.json');
+   const parentDirectoryPath = path.resolve(__dirname, '..',  'db', 'db.json');
   try {
     const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');
     console.log(content)
