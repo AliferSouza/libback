@@ -21,6 +21,13 @@ const router = {
   },
   put: function(path, handler) {
     this.addRoute('PUT', path, handler);
+  },
+  all: function(path, handler) {
+    this.addRoute('GET', path, handler);
+    this.addRoute('POST', path, handler);
+    this.addRoute('DELETE', path, handler);
+    this.addRoute('PUT', path, handler);
+    // Adicione mais métodos HTTP aqui, se necessário
   }
 };
 
