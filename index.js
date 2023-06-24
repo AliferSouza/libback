@@ -3,6 +3,7 @@ const path = require('path');
 const { server, router} = require('./server.js');
 
 
+
 const functionDirectory = './api'; // Diretório com as funções (ajuste o caminho conforme necessário)
 const apiDirectory = './api'; // Diretório onde será salvo o arquivo "apis.js" (ajuste o caminho conforme necessário)
 
