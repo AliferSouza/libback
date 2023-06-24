@@ -60,7 +60,7 @@ function resolverApiDiretorio() {
  
 const server = http.createServer((req, res) => {
   if (req.url === '/') {
-    const filePath = path.join(__dirname, 'src',  'index.html');
+    const filePath = path.join(__dirname, 'index.html');
     fs.readFile(filePath, 'utf8', (err, content) => {
       if (err) {
         res.writeHead(500);
