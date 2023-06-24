@@ -56,11 +56,10 @@ const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
 router.get('/',  async (req, res) => {
-  const content = "Alifer"
-    
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end(content, 'utf-8');
+  const apiDirectory = path.join(__dirname, 'api');
+  const apiEndpoint = req.url.replace('/router', '');
+  const filePath = path.join(apiDirectory, apiEndpoint + '.js');
+  apiObject["user"](req, res)
 
 });
 
