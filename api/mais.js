@@ -1,6 +1,4 @@
-export default mais( (req, res) => {
-
-    console.log("Alifer")
-  
-  });
-  
+// mais.js
+module.exports = function(req, res) {
+  console.log(req.method)
+};

@@ -37,16 +37,30 @@ function useLocalStorage(operation, name, props) {
 
 
 async function useLocation() {
-  try {
-    const { coords } = await new Promise((resolve, reject) => {
+
+  async function getLocation() {
+    return new Promise((resolve, reject) => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            resolve({ latitude, longitude });
+          },
+          (error) => {
+            reject(error);
+          }
+        );
       } else {
-        reject(new Error("Geolocation is not supported by this browser."));
+        const error = new Error("Geolocation is not supported by this browser.");
+        reject(error);
       }
     });
-
-    return [coords.latitude, coords.longitude];
+  }
+  
+  try {
+    const { latitude, longitude } = await getLocation();
+    return [latitude, longitude];
   } catch (error) {
     console.log("Erro ao obter localização:", error.message);
     return [null, null];
@@ -184,27 +198,30 @@ function Router(Pages) {
       })
     );
 
-    ROOT.innerHTML = divTemporaria.innerHTML;
+    ROOT.innerHTML  =  divTemporaria.innerHTML;
 
     if (typeof statePage === "function") {
       statePage();
     }
     stateFunctions.forEach((stateFunction) => stateFunction());
   }
+
   async function routerState() {
     const dataUrl = location.hash.replace("#", "") || location.pathname;
     const currentPage = dataUrl === "/" ? Object.keys(Pages)[0] : (dataUrl.match(/^\/(\w+)(\/)?/) || [])[1];
     const resultUrl = currentPage && Pages[currentPage] ? currentPage : "erro"
     if (resultUrl === "erro") {
-      erroPage(Pages);
-    } else {
-      const { html, state } = await Pages[resultUrl]();
-      const renderedHtml = typeof html === "function" ? html() : await Pages[resultUrl]();
-      const renderedState = typeof state === "function" ? state : undefined;
-      customTags(renderedHtml, renderedState);
-    }
+    erroPage(Pages);
+  } else {
+    const { html, state } = await Pages[resultUrl]();
+    const renderedHtml = typeof html === "function" ? html() : await Pages[resultUrl]();
+    const renderedState = typeof state === "function" ? state : undefined;
+    customTags(renderedHtml, renderedState);
+  }
     
   }
+  
+
   function debounce(fn, delay) {
     let timeoutId;
     return function (...args) {
@@ -214,6 +231,7 @@ function Router(Pages) {
       }, delay);
     };
   }
+
   function erroPage(Pages) {
     ROOT.innerHTML = `
     <div class="erroPages">
@@ -226,6 +244,9 @@ function Router(Pages) {
     </div>
   `;
   }
+
+
+
   function handleClick(e) {
     if (e.target.matches("[data-href]")) {
       e.preventDefault();
@@ -234,6 +255,7 @@ function Router(Pages) {
       routerState();
     }
   }
+
   window.addEventListener("popstate", routerState);
   document.body.addEventListener("click", debounce(handleClick, 200));
   routerState();
