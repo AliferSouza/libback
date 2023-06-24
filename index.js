@@ -56,13 +56,18 @@ const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
 
-
 router.get('/',  async (req, res) => {
-    const filePath = path.join(__dirname, "src", 'index.html');
-    const content = await fs.promises.readFile(filePath, 'utf-8');
+  const parentDirectoryPath = path.resolve(__dirname, '..',  'db', 'db.json');
+  try {
+    const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');
+    console.log(content)
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Type', 'application/json');
     res.end(content, 'utf-8');
+  } catch (err) {
+    res.statusCode = 500;
+    res.end('Erro ao ler o arquivo JSON.');
+    }
 
 });
 const port = process.env.PORT || 3000;
