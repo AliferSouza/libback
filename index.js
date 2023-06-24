@@ -55,9 +55,9 @@ fileContentApi();`;
 const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
-router.get('/',  async (req, res) => {
-    const filePath = path.join(__dirname, "src", 'index.html');
 
+router.get('/',  async (req, res) => {
+    const filePath = path.join(__dirname, 'index.html');
     try {
     const content = await fs.promises.readFile(filePath, 'utf-8');
     res.statusCode = 200;
@@ -68,16 +68,6 @@ router.get('/',  async (req, res) => {
     res.end('Erro ao ler o arquivo HTML.');
     }
 
-});
-
-router.all('/api/:id', async (req, res) => {
-  const apiDirectory = path.join(__dirname, 'api');
-  const id = req.params.id;
-  const apiEndpoint = req.url.replace('/router', '');
-  const filePath = path.join(apiDirectory, apiEndpoint + '.js');
-  apiObject[id](req, res)
-
-  
 });
 
 const port = process.env.PORT || 3000;
