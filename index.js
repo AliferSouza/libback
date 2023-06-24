@@ -57,16 +57,14 @@ const apiObject = eval(pathApi);
 
 
 
-router.all('/api/:id', async (req, res) => { 
-  const apiDirectory = path.join(__dirname, 'api');
-  const id = req.params.id;
-  const apiEndpoint = req.url.replace('/router', '');
-  const filePath = path.join(apiDirectory, apiEndpoint + '.js');
-  console.log(filePath)
-  apiObject[id](req, res)
-  
-});
+router.get('/',  async (req, res) => {
+    const filePath = path.join(__dirname, "src", 'index.html');
+    const content = await fs.promises.readFile(filePath, 'utf-8');
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.end(content, 'utf-8');
 
+});
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
