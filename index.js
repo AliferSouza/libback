@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { server, router} = require('./server.js');
 
+
 function resolverApiDiretorio() {
   const functionDirectory = './api'; // Diretório com as funções (ajuste o caminho conforme necessário)
   const apiDirectory = './api'; // Diretório onde será salvo o arquivo "apis.js" (ajuste o caminho conforme necessário)
@@ -56,20 +57,28 @@ const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
 
+
+router.all('/api/:id', async (req, res) => {
+  const apiDirectory = path.join(__dirname, 'api');
+  const id = req.params.id;
+  const apiEndpoint = req.url.replace('/router', '');
+  const filePath = path.join(apiDirectory, apiEndpoint + '.js');
+  apiObject[id](req, res)
+
+  
+});
+
+
 router.get('/',  async (req, res) => {
-  const parentDirectoryPath = path.resolve(__dirname, '..',  'db', 'db.json');
-  try {
-    const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');
-    console.log(content)
+    const filePath = path.join(__dirname, "src", 'index.html');
+    const content = await fs.promises.readFile(filePath, 'utf-8');
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'text/html');
     res.end(content, 'utf-8');
-  } catch (err) {
-    res.statusCode = 500;
-    res.end('Erro ao ler o arquivo JSON.');
-    }
 
 });
+
+
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
