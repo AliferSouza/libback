@@ -4,47 +4,67 @@ const path = require('path');
 
 const port = process.env.PORT || 3000;
 
-// Função para resolver o diretório das APIs
 function resolverApiDiretorio() {
   const functionDirectory = './api'; // Diretório com as funções (ajuste o caminho conforme necessário)
+  const apiDirectory = './api'; // Diretório onde será salvo o arquivo "apis.js" (ajuste o caminho conforme necessário)
 
-  const apiObject = {};
+  function generateAPIsObject() {
+    const apis = {};
 
-  // Lê os arquivos presentes no diretório das funções
-  const files = fs.readdirSync(functionDirectory);
-  const jsFiles = files.filter(file => file.endsWith('.js'));
+    // Lê os arquivos presentes no diretório das funções
+    const files = fs.readdirSync(functionDirectory);
+    const jsFiles = files.filter(file => file.endsWith('.js'));
+    jsFiles.forEach(file => {
+      const functionName = path.parse(file).name;
+      // Ignora o arquivo se o nome for 'index'
+      if (functionName !== 'index') {
+        apis[functionName] = file;
+      }
+    });
 
-  jsFiles.forEach(file => {
-    const functionName = path.parse(file).name;
-    // Ignora o arquivo se o nome for 'index'
-    if (functionName !== 'index') {
-      const apiFunction = require(path.join(functionDirectory, file));
-      apiObject[functionName] = apiFunction;
-    }
+    return apis;
+  }
+
+  const apisObject = generateAPIsObject();
+
+  let declarations = '';
+  Object.keys(apisObject).forEach(functionName => {
+    const filePath = path.join(apisObject[functionName]);
+    const declaration = `const ${functionName} = require('./api/${functionName}');\n`;
+    declarations += declaration;
   });
 
-  return apiObject;
+  const fileContent = `
+function fileContentApi() {
+${declarations}
+  return module.exports = {
+${Object.entries(apisObject)
+    .map(([key, value], index, array) => {
+      if (index === array.length - 1) {
+        return `    ${key}`;
+      } else {
+        return `    ${key},`;
+      }
+    })
+    .join('\n')}
+  };
 }
 
-const apiObject = resolverApiDiretorio();
+fileContentApi();`;
 
-// Criação do servidor
-const server = http.createServer((req, res) => {
+  return fileContent;
+}
+const pathApi = resolverApiDiretorio();
+const apiObject = eval(pathApi);
+
+
+
+const server = http.createServer(async (req, res) => {
   const { method, url } = req;
 
-  // Rota para as APIs
-  if (url.startsWith('/api/')) {
-    const id = url.substring(5);
-    if (apiObject.hasOwnProperty(id)) {
-      const apiFunction = apiObject[id];
-      apiFunction(req, res);
-    } else {
-      res.statusCode = 404;
-      res.end('API endpoint not found');
-    }
-  } else if (url === '/') {
-    // Rota padrão (index.html)
-    const filePath = path.join(__dirname, 'public', 'index.html');
+  if (url === '/') {
+    // Rota raiz
+    const filePath = path.join(__dirname, 'index.html');
     fs.readFile(filePath, 'utf-8', (err, content) => {
       if (err) {
         res.statusCode = 500;
@@ -55,14 +75,26 @@ const server = http.createServer((req, res) => {
         res.end(content);
       }
     });
+  } else if (url.startsWith('/api/')) {
+    const apiEndpoint = url.substring(5);
+    console.log(apiObject[apiEndpoint](req, res))
+   
   } else {
-    // Rota inválida
-    res.statusCode = 404;
-    res.end('Not found');
+    // Rota para arquivos estáticos
+    const filePath = path.join(__dirname, url);
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        res.statusCode = 404;
+        res.end('Not found');
+      } else {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', getMimeType(filePath));
+        res.end(content);
+      }
+    });
   }
 });
 
-// Inicia o servidor
 server.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
