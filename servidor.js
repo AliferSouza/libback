@@ -1,61 +1,12 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-function resolverApiDiretorio() {
-    const functionDirectory = './api'; // Diretório com as funções (ajuste o caminho conforme necessário)
-    const apiDirectory = './api'; // Diretório onde será salvo o arquivo "apis.js" (ajuste o caminho conforme necessário)
-  
-    function generateAPIsObject() {
-      const apis = {};
-  
-      // Lê os arquivos presentes no diretório das funções
-      const files = fs.readdirSync(functionDirectory);
-      const jsFiles = files.filter(file => file.endsWith('.js'));
-      jsFiles.forEach(file => {
-        const functionName = path.parse(file).name;
-        // Ignora o arquivo se o nome for 'index'
-        if (functionName !== 'index') {
-          apis[functionName] = file;
-        }
-      });
-  
-      return apis;
-    }
-  
-    const apisObject = generateAPIsObject();
-  
-    let declarations = '';
-    Object.keys(apisObject).forEach(functionName => {
-      const filePath = path.join(apisObject[functionName]);
-      const declaration = `const ${functionName} = require('./api/${functionName}');\n`;
-      declarations += declaration;
-    });
-  
-    const fileContent = `
-  function fileContentApi() {
-  ${declarations}
-    return module.exports = {
-  ${Object.entries(apisObject)
-      .map(([key, value], index, array) => {
-        if (index === array.length - 1) {
-          return `    ${key}`;
-        } else {
-          return `    ${key},`;
-        }
-      })
-      .join('\n')}
-    };
-  }
-  
-  fileContentApi();`;
-  
-    return fileContent;
-  }
- const pathApi = resolverApiDiretorio();
- const apiObject = eval(pathApi);
 
  
 const server = http.createServer((req, res) => {
@@ -74,7 +25,13 @@ const server = http.createServer((req, res) => {
     const apiPath = path.join(__dirname, 'api');   
     const endpoint = req.url.substring(5).split('/')[0]
     const filePath = path.join(apiPath, endpoint);
-    apiObject[endpoint](req, res)
+    if (fs.existsSync(filePath + '.js')) {
+      const apiFunction = require(filePath);
+      apiFunction(req, res);
+    } else {
+      res.statusCode = 404;
+      res.end('Endpoint não encontrado');
+    }
    
   } else {
     let filePath = path.join(__dirname, 'public', req.url);
