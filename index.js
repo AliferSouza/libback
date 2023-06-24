@@ -56,7 +56,7 @@ const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
 router.get('/',  async (req, res) => {
-  apiObject["mais"](req, res)
+  apiObject["user"](req, res)
 
 });
 
