@@ -2,30 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const { server, router } = require('./server.js');
 
+
 router.get('/',  async (req, res) => {
     const filePath = path.join(__dirname, "src", 'index.html');
-    try {
-    const content = await fs.promises.readFile(filePath, 'utf-8'); 
+
+    const content = await fs.promises.readFile(filePath, 'utf-8');
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     res.end(content, 'utf-8');
-  } catch (err) {
-    res.statusCode = 500;
-    res.end('Erro ao ler o arquivo JSON.');
-    }
 
 });
-
-
-//router.get('/',  async (req, res) => {
-  //  const filePath = path.join(__dirname, "src", 'index.html');
-
-    //const content = await fs.promises.readFile(filePath, 'utf-8');
-    //res.statusCode = 200;
-    //res.setHeader('Content-Type', 'text/html');
-    //res.end(content, 'utf-8');
-
-//});
 
 
 router.post('/api', (req, res) => {
