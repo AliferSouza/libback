@@ -57,7 +57,7 @@ const apiObject = eval(pathApi);
 
 
 
-router.all('/', async (req, res) => { 
+router.all('/api/:id', async (req, res) => { 
   const apiDirectory = path.join(__dirname, 'api');
   const id = req.params.id;
   const apiEndpoint = req.url.replace('/router', '');
