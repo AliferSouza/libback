@@ -55,10 +55,7 @@ fileContentApi();`;
 const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
-router.get('/',  async (req, res) => {
-  apiObject["user"](req, res)
 
-});
 
 
 router.all('/api/:id', async (req, res) => {
