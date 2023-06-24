@@ -55,6 +55,15 @@ fileContentApi();`;
 const pathApi = resolverApiDiretorio();
 const apiObject = eval(pathApi);
 
+router.get('/',  async (req, res) => {
+  const content = "Alifer"
+    
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.end(content, 'utf-8');
+
+});
+
 
 router.all('/api/:id', async (req, res) => {
   const apiDirectory = path.join(__dirname, 'api');
