@@ -1,4 +1,12 @@
-
 {
-    "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+    "router": [
+        {
+            "src": "/",
+            "dest": "/public/index.html"
+        },
+        {
+            "src": "/api/*",
+            "dest": "/api/:value"
+        }
+    ]
 }
