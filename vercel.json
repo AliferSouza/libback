@@ -6,14 +6,10 @@
             "use":"@now/node"
         }
     ],
-    "router": [
+    "routes":[
         {
-            "src": "/",
-            "dest": "/public/index.html"
-        },
-        {
-            "src": "/api/*",
-            "dest": "/api/:value"
+            "src":"/api/(.*)",
+            "dest":"index.js"
         }
     ]
 }
