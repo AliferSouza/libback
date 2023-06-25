@@ -1,0 +1,13 @@
+[
+    {
+      "id": "Prix",
+      "title": "Prix",
+      "Descricao": "Toda a lib mimificada, baixe e use como quiser",
+      "img": "/src/img/prix.png",
+      "link": "",
+      "contribuidores": [{
+        "Alifer":"https://github.com/AliferSouza/"
+      }]
+    }
+  ]
+  
