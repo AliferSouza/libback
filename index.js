@@ -59,6 +59,7 @@ const apiObject = eval(pathApi);
 
 
 
+
 router.get('/',  async (req, res) => {
   const filePath = path.join(__dirname, 'public', 'index.html');
     const content = await fs.promises.readFile(filePath, 'utf-8');
@@ -66,6 +67,19 @@ router.get('/',  async (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     res.end(content, 'utf-8');
 });
+
+
+
+router.all('/api/:id', async (req, res) => {
+  const apiDirectory = path.join(__dirname, 'api');
+  const id = req.params.id;
+  const apiEndpoint = req.url.replace('/router', '');
+  const filePath = path.join(apiDirectory, apiEndpoint + '.js');
+  apiObject[id](req, res)
+
+  
+});
+
 
 
 
