@@ -1,6 +1,7 @@
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+
 
 const router = {
   routes: {},
@@ -21,6 +22,13 @@ const router = {
   },
   put: function(path, handler) {
     this.addRoute('PUT', path, handler);
+  },
+  all: function(path, handler) {
+    this.addRoute('GET', path, handler);
+    this.addRoute('POST', path, handler);
+    this.addRoute('DELETE', path, handler);
+    this.addRoute('PUT', path, handler);
+    // Adicione mais métodos HTTP aqui, se necessário
   }
 };
 
@@ -83,12 +91,14 @@ const middleware = (req, res) => {
     }
   }
 
+
+
   // If no route is found, serve static files
   if (!foundRoute) {
     const currentDir = __dirname;
     const parentDir = path.dirname(currentDir)
-    const filePath = path.join(parentDir, url)      
-    serveStaticFile(filePath, res);
+    const filePath = path.join(parentDir, url) 
+    serveStaticFile(path.join(currentDir, url), res);
   }
 };
 
@@ -125,15 +135,22 @@ function getContentType(extname) {
   }
   
 function serveStaticFile(filePath, res) {
+
     fs.readFile(filePath, (err, content) => {
-      if (err) {
+
+      if (err) {    
+
+
         if (err.code === 'ENOENT') {
-          sendNotFoundResponse(res);
+          sendNotFoundResponse(res);      
         } else {
+
           sendErrorResponse(res, 500, `Erro ao carregar o arquivo ${filePath}: ${err.message}`);
+        
         }
       } else {
         const extname = path.extname(filePath);
+ 
         const contentType = getContentType(extname);
         sendResponse(res, 200, contentType, content);
       }
@@ -146,9 +163,44 @@ const server = http.createServer((req, res) => {
       middleware(req, res);
     });
   });
+
+
+function loadEnvVariables(envFilePath) {
+  const dotenvPath = path.resolve(process.cwd(), envFilePath);
   
-  module.exports = {
+  try {
+    const envConfig = fs.readFileSync(dotenvPath, 'utf-8');
+    const envVars = envConfig.split('\n');
+
+    envVars.forEach(envVar => {
+      const [key, value] = envVar.split('=');
+      process.env[key] = value;
+    });
+
+    console.log('Variáveis de ambiente carregadas com sucesso.');
+  } catch (err) {
+    console.error('Erro ao carregar as variáveis de ambiente:', err);
+  }
+}
+
+
+function readFileSync(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(content);
+      }
+    });
+  });
+}
+
+module.exports = {
     router,
     server,
+    loadEnvVariables,
+    serveStaticFile,
+    readFileSync
   };
   
