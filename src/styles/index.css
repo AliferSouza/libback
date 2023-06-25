@@ -1,0 +1,7 @@
+@media (max-width: 800px) {
+  .img-descricao{
+    width: 100px;
+    min-width: none;
+ 
+}
+}
