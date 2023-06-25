@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports  = async (req, res) => {
-  const parentDirectoryPath = path.resolve(__dirname, '..', 'db', 'db.json');
+module.exports  = async (req, res) => { 
+  const parentDirectoryPath = path.resolve(__dirname, '..', 'public', 'index.html');
+  
   try {
     const content = await fs.promises.readFile(parentDirectoryPath, 'utf-8');
     console.log(content);
